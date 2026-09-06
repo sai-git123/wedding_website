@@ -7,7 +7,7 @@ const WEDDING_CONFIG = {
   // Couple
   brideName: "Vidyshree",
   groomName: "Saiprasad",
-  familyName: "Shet",
+  familyName: "Shet Family and Revankar Family ",
 
   // Wedding date/time. Use ISO format with timezone.
   // Example: 2026-11-25T10:30:00+05:30
