@@ -44,9 +44,9 @@ const WEDDING_CONFIG = {
       name: "Mehendi",
       date: "24 Nov 2026",
       time: "4:00 PM onwards",
-      venue: "The Garden Courtyard, Bengaluru",
+      venue: "Shri Ganesha Nilaya, Baggon, Kumta",
       description: "An evening of henna, music and colour.",
-      maps: "https://maps.google.com/?q=Garden+Courtyard+Bengaluru"
+      maps: "https://maps.app.goo.gl/CvmhJNmvdhTpqBq19"
     }
   ]
 };
