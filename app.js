@@ -65,7 +65,6 @@
 
     window.setTimeout(() => {
       screen.classList.add("is-open");
-      doorState = "open";
       document.body.classList.remove("door-locked");
       setupRevealAnimations();
     }, 1600);
