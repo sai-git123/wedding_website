@@ -168,7 +168,7 @@ img { max-width: 100%; }
   transition: opacity .5s ease, transform .6s ease;
 }
 .door-kicker { display: block; font-family: var(--font-sans); font-weight: 300; letter-spacing: .34em; text-transform: uppercase; font-size: 10px; opacity: .8; }
-.door-names { display: block; margin-top: 8px; font-family: var(--font-script-lg); font-size: clamp(26px, 6vw, 38px); }
+.door-names { display: block; margin-top: 8px; font-family: var(--font-script-lg); font-size: clamp(36px, 8vw, 54px); }
 .door-screen.is-opening .door-invite-copy { opacity: 0; transform: translateX(-50%) translateY(-14px); }
 
 .enter-button {
@@ -176,7 +176,7 @@ img { max-width: 100%; }
   z-index: 10;
   left: 50%; top: 62%;
   transform: translate(-50%, -50%);
-  width: min(80vw, 320px);
+  width: min(70vw, 240px);
   aspect-ratio: 1;
   border-radius: 50%;
   border: 1px solid rgba(255, 238, 205, .4);
