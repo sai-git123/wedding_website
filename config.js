@@ -22,8 +22,7 @@ const WEDDING_CONFIG = {
     invitationEn: "assets/English.png",  // English invitation card
     invitationKn: "assets/kannada.png",  // Kannada invitation card
     ogImage: "assets/kannada.png",      // used for link previews
-    backgroundAudio: "assets/audio.mp3", // Background audio track
-    introVideo: "assets/intro.mp4"       // Initial scroll-scrubbing video
+    backgroundAudio: "assets/audio.mp3" // Background audio track
   },
 
   // Optional text
