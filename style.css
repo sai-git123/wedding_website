@@ -346,7 +346,26 @@ img { max-width: 100%; }
   overflow: hidden;
   z-index: 1;
 }
-.hero-photo img { display: block; width: 100%; height: 100%; object-fit: cover; border-radius: 208px 208px 18px 18px; background: #e5dcc8; }
+.hero-photo-carousel {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  border-radius: 208px 208px 18px 18px;
+  background: #e5dcc8;
+}
+.hero-photo-carousel::-webkit-scrollbar { display: none; }
+.hero-photo-carousel img {
+  flex: 0 0 100%;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  scroll-snap-align: center;
+  border-radius: 0;
+  background: transparent;
+}
 .photo-frame-inner { position: absolute; inset: 16px; border: 1px solid rgba(255,255,255,.55); border-radius: 202px 202px 12px 12px; pointer-events: none; }
 .photo-overlay { position: absolute; inset: 10px; border-radius: inherit; background: linear-gradient(125deg, rgba(255,255,255,.26), transparent 34%, transparent 70%, rgba(255,255,255,.16)); pointer-events: none; }
 

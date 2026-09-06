@@ -114,7 +114,7 @@
     setText("#countdownHeading", cfg.countdownHeading, fallback.countdownHeading);
     setText("#closingLine", cfg.closingLine, fallback.closingLine);
 
-    setImage("#couplePhoto", cfg.assets.couplePhoto, "Couple photograph");
+    setupHeroCarousel();
     setImage("#invitationImageEn", cfg.assets.invitationEn, "English Wedding invitation");
     setImage("#invitationImageKn", cfg.assets.invitationKn, "Kannada Wedding invitation");
 
@@ -130,6 +130,41 @@
     const ogTitle = document.querySelector('meta[property="og:title"]');
     if (ogTitle && bride !== "[Bride]" && groom !== "[Groom]") {
       ogTitle.setAttribute("content", `${bride} & ${groom} — Wedding Invitation`);
+    }
+  }
+
+  /* ------------------------------------------------------------
+     HERO CAROUSEL
+     ------------------------------------------------------------ */
+  function setupHeroCarousel() {
+    const carousel = $("#heroPhotoCarousel");
+    if (!carousel) return;
+
+    let photos = cfg.assets.couplePhotos || [];
+    if (!photos.length && cfg.assets.couplePhoto) {
+      photos = [cfg.assets.couplePhoto];
+    }
+
+    if (photos.length) {
+      carousel.innerHTML = photos.map(src => `<img src="${src}" alt="Couple photograph" loading="lazy">`).join("");
+    }
+
+    if (photos.length > 1) {
+      let timer;
+      const startTimer = () => {
+        clearInterval(timer);
+        timer = setInterval(() => {
+          let nextScroll = carousel.scrollLeft + carousel.clientWidth;
+          if (nextScroll >= carousel.scrollWidth - 10) {
+            nextScroll = 0;
+          }
+          carousel.scrollTo({ left: nextScroll, behavior: 'smooth' });
+        }, 10000);
+      };
+
+      startTimer();
+      carousel.addEventListener("touchstart", startTimer, { passive: true });
+      carousel.addEventListener("pointerdown", startTimer, { passive: true });
     }
   }
 

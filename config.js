@@ -18,7 +18,13 @@ const WEDDING_CONFIG = {
   // Drop your files into the assets/ folder and point to them here.
   assets: {
     door: "assets/door-placeholder.png",             // full-screen closed-door artwork
-    couplePhoto: "assets/couple.jpg",     // hero photograph
+    couplePhotos: [
+      "assets/couple.jpg",
+      "assets/couple2.jpg",
+      "assets/couple3.jpg",
+      "assets/couple4.jpg",
+      "assets/couple5.jpg" // Add more photos here
+    ], // array of hero photographs for the carousel
     invitationEn: "assets/English.png",  // English invitation card
     invitationKn: "assets/kannada.png",  // Kannada invitation card
     ogImage: "assets/kannada.png",      // used for link previews
