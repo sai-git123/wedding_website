@@ -20,10 +20,10 @@ const WEDDING_CONFIG = {
     door: "assets/door-placeholder.png",             // full-screen closed-door artwork
     couplePhotos: [
       "assets/couple.jpg",
-      "assets/couple2.jpg",
-      "assets/couple3.jpg",
-      "assets/couple4.jpg",
-      "assets/couple5.jpg" // Add more photos here
+      "assets/couple_2.jpg",
+      "assets/couple_3.jpg",
+      "assets/couple_4.jpg",
+      "assets/couple_5.jpg" // Add more photos here
     ], // array of hero photographs for the carousel
     invitationEn: "assets/English.png",  // English invitation card
     invitationKn: "assets/kannada.png",  // Kannada invitation card
