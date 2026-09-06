@@ -5,7 +5,7 @@
    ============================================================ */
 const WEDDING_CONFIG = {
   // Couple
-  brideName: "Vidyshree",
+  brideName: "Vidyashree",
   groomName: "Saiprasad",
   familyName: "Shet Family and Revankar Family ",
 
@@ -30,9 +30,7 @@ const WEDDING_CONFIG = {
   countdownHeading: "To the beginning of forever.",
   closingLine: "A warm invite from",
 
-  // WhatsApp caption. The invitation image is shared as media on supported phones.
-  // {bride}, {groom}, {date} and {venue} are replaced automatically.
-  whatsappCaption: "You are warmly invited to celebrate the wedding of {bride} & {groom}. 💛\n\n{date}\n{venue}\n\nWe would love to celebrate this special day with you!",
+  
 
   // Optional: a specific WhatsApp number to send to, in international
   // format with no + or spaces (e.g. "919876543210"). Leave empty to let
