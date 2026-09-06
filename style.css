@@ -582,6 +582,35 @@ img { max-width: 100%; }
   .events-intro, .events-progress { display: none; }
 }
 
+/* ============================================================
+   AUDIO CONTROL
+   ============================================================ */
+.audio-control {
+  position: fixed;
+  top: 16px;
+  right: 16px;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(45, 30, 16, 0.4);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  color: #fff9ea;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 9999;
+  transition: transform 0.3s var(--ease-silk), background 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+.audio-control:hover {
+  transform: scale(1.05);
+  background: rgba(45, 30, 16, 0.6);
+}
+
+
 @media (min-width: 960px) {
   .events-list { grid-template-columns: repeat(3, 1fr); }
 }

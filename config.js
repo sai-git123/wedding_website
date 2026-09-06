@@ -21,7 +21,8 @@ const WEDDING_CONFIG = {
     couplePhoto: "assets/couple.jpg",     // hero photograph
     invitationEn: "assets/English.png",  // English invitation card
     invitationKn: "assets/kannada.png",  // Kannada invitation card
-    ogImage: "assets/kannada.png"      // used for link previews
+    ogImage: "assets/kannada.png",      // used for link previews
+    backgroundAudio: "assets/audio.mp3"  // Background audio track
   },
 
   // Optional text

@@ -49,6 +49,14 @@
     const button = $("#enterButton");
     if (!screen || screen.classList.contains("is-opening")) return;
 
+    // Attempt to play audio
+    const audio = $("#bgAudio");
+    const audioToggle = $("#audioToggle");
+    if (audio && cfg.assets.backgroundAudio) {
+      audio.play().catch(() => console.log("Audio autoplay prevented by browser"));
+      if (audioToggle) audioToggle.style.display = "flex";
+    }
+
     screen.classList.add("is-opening");
     button?.setAttribute("aria-disabled", "true");
     invitation?.setAttribute("aria-hidden", "false");
@@ -57,6 +65,7 @@
 
     window.setTimeout(() => {
       screen.classList.add("is-open");
+      doorState = "open";
       document.body.classList.remove("door-locked");
       setupRevealAnimations();
     }, 1600);
@@ -109,6 +118,12 @@
     setImage("#couplePhoto", cfg.assets.couplePhoto, "Couple photograph");
     setImage("#invitationImageEn", cfg.assets.invitationEn, "English Wedding invitation");
     setImage("#invitationImageKn", cfg.assets.invitationKn, "Kannada Wedding invitation");
+
+    if (cfg.assets.backgroundAudio) {
+      const audioSource = $("#bgAudioSource");
+      if (audioSource) audioSource.src = cfg.assets.backgroundAudio;
+      $("#bgAudio")?.load();
+    }
 
     const ogImage = document.querySelector('meta[property="og:image"]');
     if (ogImage && cfg.assets.ogImage) ogImage.setAttribute("content", cfg.assets.ogImage);
@@ -386,6 +401,30 @@
     });
   }
 
+  /* ------------------------------------------------------------
+     AUDIO CONTROL
+     ------------------------------------------------------------ */
+  function setupAudio() {
+    const audio = $("#bgAudio");
+    const toggleBtn = $("#audioToggle");
+    const iconOn = $("#audioIconOn");
+    const iconOff = $("#audioIconOff");
+
+    if (!audio || !toggleBtn) return;
+
+    toggleBtn.addEventListener("click", () => {
+      if (audio.muted) {
+        audio.muted = false;
+        if (iconOn) iconOn.style.display = "block";
+        if (iconOff) iconOff.style.display = "none";
+      } else {
+        audio.muted = true;
+        if (iconOn) iconOn.style.display = "none";
+        if (iconOff) iconOff.style.display = "block";
+      }
+    });
+  }
+
   function init() {
     applyConfig();
     setupDoor();
@@ -395,6 +434,7 @@
     setupParallax();
     setupRevealAnimations();
     setupLightbox();
+    setupAudio();
     
     $("#shareButtonEn")?.addEventListener("click", (e) => shareInvitation("invitationImageEn", e.currentTarget));
     $("#shareButtonKn")?.addEventListener("click", (e) => shareInvitation("invitationImageKn", e.currentTarget));
