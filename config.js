@@ -22,7 +22,8 @@ const WEDDING_CONFIG = {
     invitationEn: "assets/English.png",  // English invitation card
     invitationKn: "assets/kannada.png",  // Kannada invitation card
     ogImage: "assets/kannada.png",      // used for link previews
-    backgroundAudio: "assets/audio.mp3"  // Background audio track
+    backgroundAudio: "assets/audio.mp3", // Background audio track
+    introVideo: "assets/intro.mp4"       // Initial scroll-scrubbing video
   },
 
   // Optional text
@@ -30,7 +31,6 @@ const WEDDING_CONFIG = {
   countdownHeading: "To the beginning of forever.",
   closingLine: "A warm invite from",
 
-  
 
   // Optional: a specific WhatsApp number to send to, in international
   // format with no + or spaces (e.g. "919876543210"). Leave empty to let

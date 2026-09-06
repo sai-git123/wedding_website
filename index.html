@@ -38,8 +38,23 @@
     </svg>
   </button>
 
+  <!-- SCROLL-DRIVEN VIDEO INTRO -->
+  <section class="video-scroller" id="videoScroller">
+    <div class="video-sticky-container">
+      <video id="introVideo" preload="auto" playsinline muted>
+        <source src="" type="video/mp4" id="introVideoSource">
+      </video>
+      <div class="video-prompt" id="videoPrompt">
+        <span>Scroll down</span>
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="6 9 12 15 18 9"></polyline>
+        </svg>
+      </div>
+    </div>
+  </section>
+
   <!-- ENTRY / DOOR -->
-  <section class="door-screen" id="doorScreen" aria-label="Open wedding invitation">
+  <section class="door-screen" id="doorScreen" aria-label="Open wedding invitation" style="display: none;">
     <div class="door-backdrop" aria-hidden="true"></div>
     <div class="door-glow" id="doorGlow" aria-hidden="true"></div>
     <div class="door-stage" id="doorStage">

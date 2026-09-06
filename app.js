@@ -432,8 +432,82 @@
     });
   }
 
+  /* ------------------------------------------------------------
+     VIDEO SCROLLER
+     ------------------------------------------------------------ */
+  let introVideoPhase = true;
+  function setupVideoScroller() {
+    const scroller = $("#videoScroller");
+    const video = $("#introVideo");
+    const prompt = $("#videoPrompt");
+    const doorScreen = $("#doorScreen");
+
+    if (!scroller || !video || !doorScreen) return;
+
+    if (cfg.assets.introVideo) {
+      const source = $("#introVideoSource");
+      if (source) source.src = cfg.assets.introVideo;
+      video.load();
+    } else {
+      // If no video configured, skip phase entirely
+      finishVideoPhase();
+      return;
+    }
+
+    let ticking = false;
+
+    function updateVideo() {
+      if (!introVideoPhase) return;
+
+      const rect = scroller.getBoundingClientRect();
+      const maxScroll = rect.height - window.innerHeight;
+      const scrollPos = -rect.top; 
+
+      if (prompt && scrollPos > 50) {
+        prompt.style.opacity = "0";
+      }
+
+      let progress = scrollPos / maxScroll;
+      if (progress < 0) progress = 0;
+      if (progress > 1) progress = 1;
+
+      // Ensure video metadata is loaded before seeking
+      if (video.duration) {
+        // Safari might throw errors if we seek past duration
+        const targetTime = progress * video.duration;
+        video.currentTime = Math.min(targetTime, video.duration - 0.1); 
+      }
+
+      if (progress >= 1) {
+        finishVideoPhase();
+      }
+      ticking = false;
+    }
+
+    function onScroll() {
+      if (!ticking && introVideoPhase) {
+        window.requestAnimationFrame(updateVideo);
+        ticking = true;
+      }
+    }
+
+    window.addEventListener("scroll", onScroll, { passive: true });
+
+    function finishVideoPhase() {
+      introVideoPhase = false;
+      scroller.classList.add("is-done");
+      
+      setTimeout(() => {
+        scroller.style.display = "none";
+        doorScreen.style.display = "";
+        window.scrollTo(0, 0);
+      }, 1000);
+    }
+  }
+
   function init() {
     applyConfig();
+    setupVideoScroller();
     setupDoor();
     startCountdown();
     renderEvents();
