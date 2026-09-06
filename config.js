@@ -20,8 +20,8 @@ const WEDDING_CONFIG = {
     door: "assets/door-placeholder.png",             // full-screen closed-door artwork
     couplePhoto: "assets/couple.jpg",     // hero photograph
     invitationEn: "assets/English.png",  // English invitation card
-    invitationKn: "assets/Kannada.png",  // Kannada invitation card
-    ogImage: "assets/Kannada.png"      // used for link previews
+    invitationKn: "assets/kannada.png",  // Kannada invitation card
+    ogImage: "assets/kannada.png"      // used for link previews
   },
 
   // Optional text
