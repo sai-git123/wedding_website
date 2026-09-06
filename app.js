@@ -455,6 +455,19 @@
     }
 
     let ticking = false;
+    let targetTime = 0;
+
+    function renderVideo() {
+      if (!introVideoPhase) return;
+      if (video.duration) {
+        const diff = targetTime - video.currentTime;
+        if (Math.abs(diff) > 0.01) {
+          video.currentTime += diff * 0.1;
+        }
+      }
+      window.requestAnimationFrame(renderVideo);
+    }
+    window.requestAnimationFrame(renderVideo);
 
     function updateVideo() {
       if (!introVideoPhase) return;
@@ -473,9 +486,7 @@
 
       // Ensure video metadata is loaded before seeking
       if (video.duration) {
-        // Safari might throw errors if we seek past duration
-        const targetTime = progress * video.duration;
-        video.currentTime = Math.min(targetTime, video.duration - 0.1); 
+        targetTime = Math.min(progress * video.duration, video.duration - 0.1); 
       }
 
       if (progress >= 1) {

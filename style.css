@@ -89,7 +89,7 @@ img { max-width: 100%; }
    ============================================================ */
 .video-scroller {
   /* This creates a tall section to allow scrolling. */
-  height: 400vh;
+  height: 200vh;
   position: relative;
   background: #000;
   z-index: 50; /* Above door but below audio control */
