@@ -422,6 +422,17 @@
         if (iconOff) iconOff.style.display = "block";
       }
     });
+
+    document.addEventListener("visibilitychange", () => {
+      if (document.hidden) {
+        audio.pause();
+      } else {
+        const screen = $("#doorScreen");
+        if (screen && screen.classList.contains("is-open")) {
+          audio.play().catch(() => {});
+        }
+      }
+    });
   }
 
   function init() {
