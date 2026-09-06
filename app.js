@@ -167,7 +167,6 @@
     list.innerHTML = events.map((event, index) => `
       <article class="event-card" tabindex="0" data-index="${index}" style="--stagger:${index % 4}">
         <div class="event-card-inner">
-          <span class="event-number">${String(index + 1).padStart(2, "0")} / ${String(events.length).padStart(2, "0")}</span>
           <span class="event-name">${escapeHtml(event.name || "Event")}</span>
           <span class="event-date">${escapeHtml(event.date || "")}</span>
           <span class="event-time">${escapeHtml(event.time || "")}</span>
