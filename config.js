@@ -25,7 +25,7 @@ const WEDDING_CONFIG = {
   },
 
   // Optional text
-  invitationLine: "Together with their families, they invite you to celebrate their wedding.",
+  invitationLine: "With joyful hearts, the Shet and Revankar families invite you to celebrate love, laughter, and new beginnings with us.",
   countdownHeading: "To the beginning of forever.",
   closingLine: "A warm invite from",
 
