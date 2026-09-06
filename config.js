@@ -18,7 +18,7 @@ const WEDDING_CONFIG = {
   // Drop your files into the assets/ folder and point to them here.
   assets: {
     door: "assets/door-placeholder.png",             // full-screen closed-door artwork
-    couplePhoto: "assets/couple-placeholder.svg",     // hero photograph
+    couplePhoto: "assets/couple.jpg",     // hero photograph
     invitation: "assets/invitation-placeholder.svg",  // shareable invitation card
     ogImage: "assets/invitation-placeholder.svg"      // used for link previews
   },
