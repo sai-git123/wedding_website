@@ -13,7 +13,7 @@
   <title>Wedding Invitation</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Allura&family=Sacramento&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Sacramento&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -102,21 +102,45 @@
     <!-- INVITATION -->
     <section class="invitation-section" id="invitation-card">
       <div class="section-title" data-animate="fade"><span>The Invitation</span></div>
-      <div class="invitation-frame glass-card" data-animate="blur">
-        <div class="invitation-frame-corner tl" aria-hidden="true"></div>
-        <div class="invitation-frame-corner tr" aria-hidden="true"></div>
-        <div class="invitation-frame-corner bl" aria-hidden="true"></div>
-        <div class="invitation-frame-corner br" aria-hidden="true"></div>
-        <img id="invitationImage" src="assets/invitation-placeholder.svg" alt="Wedding invitation">
+      <div class="invitations-grid">
+        <!-- English Invitation -->
+        <div class="invitation-item">
+          <div class="invitation-frame glass-card" data-animate="blur">
+            <div class="invitation-frame-corner tl" aria-hidden="true"></div>
+            <div class="invitation-frame-corner tr" aria-hidden="true"></div>
+            <div class="invitation-frame-corner bl" aria-hidden="true"></div>
+            <div class="invitation-frame-corner br" aria-hidden="true"></div>
+            <img id="invitationImageEn" class="lightbox-trigger" src="assets/invitation-placeholder.svg" alt="English Wedding invitation" title="Click to view full screen">
+          </div>
+          <button class="share-button" id="shareButtonEn" type="button" data-animate="fade">
+            <span class="share-icon" aria-hidden="true">
+              <svg viewBox="0 0 32 32" width="20" height="20" fill="currentColor" aria-hidden="true">
+                <path d="M16.02 2.67C8.6 2.67 2.59 8.68 2.59 16.1c0 2.44.64 4.72 1.76 6.7L2.5 29.33l6.7-1.76a13.4 13.4 0 0 0 6.82 1.86h.01c7.42 0 13.43-6.01 13.43-13.43 0-3.59-1.4-6.96-3.94-9.5a13.35 13.35 0 0 0-9.5-3.83Zm0 24.3h-.01a11.2 11.2 0 0 1-5.7-1.56l-.41-.24-3.98 1.04 1.06-3.88-.27-.4a11.14 11.14 0 0 1-1.72-5.83c0-6.18 5.03-11.21 11.22-11.21a11.15 11.15 0 0 1 7.93 3.29 11.13 11.13 0 0 1 3.28 7.93c0 6.18-5.03 11.86-11.4 11.86Zm6.15-8.4c-.34-.17-1.99-.98-2.3-1.09-.31-.11-.53-.17-.76.17-.22.34-.87 1.09-1.07 1.31-.2.23-.39.25-.73.08-.34-.17-1.43-.53-2.72-1.68a10.2 10.2 0 0 1-1.89-2.35c-.2-.34-.02-.52.15-.69.15-.15.34-.4.51-.6.17-.2.22-.34.34-.57.11-.23.06-.43-.03-.6-.09-.17-.76-1.84-1.05-2.52-.28-.66-.56-.57-.76-.58l-.65-.01c-.23 0-.6.08-.91.43-.31.34-1.2 1.17-1.2 2.85 0 1.68 1.23 3.3 1.4 3.53.17.23 2.42 3.7 5.86 5.19.82.35 1.46.56 1.96.72.82.26 1.57.22 2.16.13.66-.1 1.99-.81 2.27-1.6.28-.78.28-1.45.2-1.6-.09-.14-.31-.23-.65-.4Z"/>
+              </svg>
+            </span>
+            <span>Share English on WhatsApp</span>
+          </button>
+        </div>
+        
+        <!-- Kannada Invitation -->
+        <div class="invitation-item">
+          <div class="invitation-frame glass-card" data-animate="blur" data-animate-delay="1">
+            <div class="invitation-frame-corner tl" aria-hidden="true"></div>
+            <div class="invitation-frame-corner tr" aria-hidden="true"></div>
+            <div class="invitation-frame-corner bl" aria-hidden="true"></div>
+            <div class="invitation-frame-corner br" aria-hidden="true"></div>
+            <img id="invitationImageKn" class="lightbox-trigger" src="assets/invitation-placeholder.svg" alt="Kannada Wedding invitation" title="Click to view full screen">
+          </div>
+          <button class="share-button" id="shareButtonKn" type="button" data-animate="fade" data-animate-delay="1">
+            <span class="share-icon" aria-hidden="true">
+              <svg viewBox="0 0 32 32" width="20" height="20" fill="currentColor" aria-hidden="true">
+                <path d="M16.02 2.67C8.6 2.67 2.59 8.68 2.59 16.1c0 2.44.64 4.72 1.76 6.7L2.5 29.33l6.7-1.76a13.4 13.4 0 0 0 6.82 1.86h.01c7.42 0 13.43-6.01 13.43-13.43 0-3.59-1.4-6.96-3.94-9.5a13.35 13.35 0 0 0-9.5-3.83Zm0 24.3h-.01a11.2 11.2 0 0 1-5.7-1.56l-.41-.24-3.98 1.04 1.06-3.88-.27-.4a11.14 11.14 0 0 1-1.72-5.83c0-6.18 5.03-11.21 11.22-11.21a11.15 11.15 0 0 1 7.93 3.29 11.13 11.13 0 0 1 3.28 7.93c0 6.18-5.03 11.86-11.4 11.86Zm6.15-8.4c-.34-.17-1.99-.98-2.3-1.09-.31-.11-.53-.17-.76.17-.22.34-.87 1.09-1.07 1.31-.2.23-.39.25-.73.08-.34-.17-1.43-.53-2.72-1.68a10.2 10.2 0 0 1-1.89-2.35c-.2-.34-.02-.52.15-.69.15-.15.34-.4.51-.6.17-.2.22-.34.34-.57.11-.23.06-.43-.03-.6-.09-.17-.76-1.84-1.05-2.52-.28-.66-.56-.57-.76-.58l-.65-.01c-.23 0-.6.08-.91.43-.31.34-1.2 1.17-1.2 2.85 0 1.68 1.23 3.3 1.4 3.53.17.23 2.42 3.7 5.86 5.19.82.35 1.46.56 1.96.72.82.26 1.57.22 2.16.13.66-.1 1.99-.81 2.27-1.6.28-.78.28-1.45.2-1.6-.09-.14-.31-.23-.65-.4Z"/>
+              </svg>
+            </span>
+            <span>Share Kannada on WhatsApp</span>
+          </button>
+        </div>
       </div>
-      <button class="share-button" id="shareButton" type="button" data-animate="fade">
-        <span class="share-icon" aria-hidden="true">
-          <svg viewBox="0 0 32 32" width="20" height="20" fill="currentColor" aria-hidden="true">
-            <path d="M16.02 2.67C8.6 2.67 2.59 8.68 2.59 16.1c0 2.44.64 4.72 1.76 6.7L2.5 29.33l6.7-1.76a13.4 13.4 0 0 0 6.82 1.86h.01c7.42 0 13.43-6.01 13.43-13.43 0-3.59-1.4-6.96-3.94-9.5a13.35 13.35 0 0 0-9.5-3.83Zm0 24.3h-.01a11.2 11.2 0 0 1-5.7-1.56l-.41-.24-3.98 1.04 1.06-3.88-.27-.4a11.14 11.14 0 0 1-1.72-5.83c0-6.18 5.03-11.21 11.22-11.21a11.15 11.15 0 0 1 7.93 3.29 11.13 11.13 0 0 1 3.28 7.93c0 6.18-5.03 11.86-11.4 11.86Zm6.15-8.4c-.34-.17-1.99-.98-2.3-1.09-.31-.11-.53-.17-.76.17-.22.34-.87 1.09-1.07 1.31-.2.23-.39.25-.73.08-.34-.17-1.43-.53-2.72-1.68a10.2 10.2 0 0 1-1.89-2.35c-.2-.34-.02-.52.15-.69.15-.15.34-.4.51-.6.17-.2.22-.34.34-.57.11-.23.06-.43-.03-.6-.09-.17-.76-1.84-1.05-2.52-.28-.66-.56-.57-.76-.58l-.65-.01c-.23 0-.6.08-.91.43-.31.34-1.2 1.17-1.2 2.85 0 1.68 1.23 3.3 1.4 3.53.17.23 2.42 3.7 5.86 5.19.82.35 1.46.56 1.96.72.82.26 1.57.22 2.16.13.66-.1 1.99-.81 2.27-1.6.28-.78.28-1.45.2-1.6-.09-.14-.31-.23-.65-.4Z"/>
-          </svg>
-        </span>
-        <span>Share Invitation on WhatsApp</span>
-      </button>
     </section>
 
     <div class="section-divider" aria-hidden="true"><span></span>❧<span></span></div>
@@ -131,6 +155,12 @@
   </main>
 
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <!-- LIGHTBOX -->
+  <dialog id="lightboxModal" class="lightbox-modal">
+    <button id="closeLightbox" class="lightbox-close" aria-label="Close full screen">&times;</button>
+    <img id="lightboxImage" src="" alt="Full screen invitation">
+  </dialog>
 
   <script src="config.js"></script>
   <script src="app.js"></script>

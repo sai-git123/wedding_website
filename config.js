@@ -19,7 +19,8 @@ const WEDDING_CONFIG = {
   assets: {
     door: "assets/door-placeholder.png",             // full-screen closed-door artwork
     couplePhoto: "assets/couple.jpg",     // hero photograph
-    invitation: "assets/invitation-placeholder.svg",  // shareable invitation card
+    invitationEn: "assets/invitation-en.jpg",  // English invitation card
+    invitationKn: "assets/invitation-kn.jpg",  // Kannada invitation card
     ogImage: "assets/invitation-placeholder.svg"      // used for link previews
   },
 
@@ -42,11 +43,35 @@ const WEDDING_CONFIG = {
   events: [
     {
       name: "Mehendi",
-      date: "24 Nov 2026",
-      time: "4:00 PM onwards",
+      date: "23 Nov 2026",
+      time: "10:00 AM onwards",
       venue: "Shri Ganesha Nilaya, Baggon, Kumta",
-      description: "An evening of henna, music and colour.",
-      maps: "https://maps.app.goo.gl/CvmhJNmvdhTpqBq19"
+      description: "A day of henna, music and colour.",
+      maps: "https://maps.app.goo.gl/oaPr6WyuejV1NDnFA"
+    },
+    {
+      name: "Haldi",
+      date: "24 Nov 2026",
+      time: "09:00 AM onwards",
+      venue: "Shri Ganesha Nilaya, Baggon, Kumta",
+      description: "A morning of Turmeric.",
+      maps: "https://maps.app.goo.gl/oaPr6WyuejV1NDnFA"
+    },
+    {
+      name: "Sangeet and Engagement",
+      date: "24 Nov 2026",
+      time: "07:00 PM onwards",
+      venue: "Halakki Vokkaligara Samudaya Bhavana, Divgi, Kumta",
+      description: "A evening of music, dance and fun.",
+      maps: "https://maps.app.goo.gl/8qUNm63owE6WcYCo8"
+    },
+    {
+      name: "Wedding",
+      date: "25 Nov 2026",
+      time: "10:30 AM muhurtham",
+      venue: "Halakki Vokkaligara Samudaya Bhavana, Divgi, Kumta",
+      description: "The Wedding.",
+      maps: "https://maps.app.goo.gl/oaPr6WyuejV1NDnFA"
     }
   ]
 };

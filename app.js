@@ -107,7 +107,8 @@
     setText("#closingLine", cfg.closingLine, fallback.closingLine);
 
     setImage("#couplePhoto", cfg.assets.couplePhoto, "Couple photograph");
-    setImage("#invitationImage", cfg.assets.invitation, "Wedding invitation");
+    setImage("#invitationImageEn", cfg.assets.invitationEn, "English Wedding invitation");
+    setImage("#invitationImageKn", cfg.assets.invitationKn, "Kannada Wedding invitation");
 
     const ogImage = document.querySelector('meta[property="og:image"]');
     if (ogImage && cfg.assets.ogImage) ogImage.setAttribute("content", cfg.assets.ogImage);
@@ -284,8 +285,8 @@
     return `${base}?text=${encodeURIComponent(caption)}`;
   }
 
-  async function getInvitationFile() {
-    const image = $("#invitationImage");
+  async function getInvitationFile(imageId) {
+    const image = $(`#${imageId}`);
     if (!image?.src) throw new Error("Invitation image is not configured.");
 
     const response = await fetch(image.src, { cache: "no-store" });
@@ -295,14 +296,13 @@
     return new File([blob], `wedding-invitation.${extension}`, { type: blob.type || "image/png" });
   }
 
-  async function shareInvitation() {
-    const button = $("#shareButton");
+  async function shareInvitation(imageId, buttonEl) {
     const note = $("#shareNote");
     const caption = formatCaption();
-    button?.classList.add("is-loading");
+    buttonEl?.classList.add("is-loading");
 
     try {
-      const file = await getInvitationFile();
+      const file = await getInvitationFile(imageId);
 
       // Preferred path: native share sheet with the image FILE + caption.
       // Choosing WhatsApp here sends the picture itself as media, not a link.
@@ -328,7 +328,7 @@
       window.open(whatsappTextUrl(caption), "_blank", "noopener,noreferrer");
       showToast("WhatsApp opened with your caption ready to send.");
     } finally {
-      button?.classList.remove("is-loading");
+      buttonEl?.classList.remove("is-loading");
     }
   }
 
@@ -358,6 +358,35 @@
     }[char]));
   }
 
+  /* ------------------------------------------------------------
+     LIGHTBOX
+     ------------------------------------------------------------ */
+  function setupLightbox() {
+    const modal = $("#lightboxModal");
+    const img = $("#lightboxImage");
+    const close = $("#closeLightbox");
+
+    if (!modal || !img) return;
+
+    $$(".lightbox-trigger").forEach((trigger) => {
+      trigger.addEventListener("click", () => {
+        img.src = trigger.src;
+        modal.showModal();
+        document.body.style.overflow = "hidden";
+      });
+    });
+
+    const closeModal = () => {
+      modal.close();
+      document.body.style.overflow = "";
+    };
+
+    close?.addEventListener("click", closeModal);
+    modal.addEventListener("click", (e) => {
+      if (e.target === modal) closeModal();
+    });
+  }
+
   function init() {
     applyConfig();
     setupDoor();
@@ -366,7 +395,10 @@
     setupEventScroller();
     setupParallax();
     setupRevealAnimations();
-    $("#shareButton")?.addEventListener("click", shareInvitation);
+    setupLightbox();
+    
+    $("#shareButtonEn")?.addEventListener("click", (e) => shareInvitation("invitationImageEn", e.currentTarget));
+    $("#shareButtonKn")?.addEventListener("click", (e) => shareInvitation("invitationImageKn", e.currentTarget));
   }
 
   init();
