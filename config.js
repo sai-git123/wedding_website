@@ -25,6 +25,7 @@ const WEDDING_CONFIG = {
       "assets/couple_4.jpg",
       "assets/couple_5.jpg" // Add more photos here
     ], // array of hero photographs for the carousel
+    ganesha: "assets/ganesha.png", // Ganesha picture to flash on entry
     invitationEn: "assets/English.png",  // English invitation card
     invitationKn: "assets/kannada.png",  // Kannada invitation card
     ogImage: "assets/kannada.png",      // used for link previews

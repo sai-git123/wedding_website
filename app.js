@@ -47,6 +47,8 @@
     const screen = $("#doorScreen");
     const invitation = $("#invitation");
     const button = $("#enterButton");
+    const ganeshaScreen = $("#ganeshaScreen");
+    const ganeshaImage = $("#ganeshaImage");
     if (!screen || screen.classList.contains("is-opening")) return;
 
     // Attempt to play audio
@@ -59,15 +61,38 @@
 
     screen.classList.add("is-opening");
     button?.setAttribute("aria-disabled", "true");
-    invitation?.setAttribute("aria-hidden", "false");
-    invitation?.classList.add("is-visible");
     document.body.classList.add("door-locked");
+    
+    // Check if ganesha is configured
+    const hasGanesha = cfg.assets.ganesha && ganeshaScreen && ganeshaImage;
+    if (hasGanesha) {
+      ganeshaImage.src = cfg.assets.ganesha;
+      ganeshaScreen.classList.add("is-active");
+    } else {
+      invitation?.setAttribute("aria-hidden", "false");
+      invitation?.classList.add("is-visible");
+    }
 
     window.setTimeout(() => {
       screen.classList.add("is-open");
-      document.body.classList.remove("door-locked");
-      setupRevealAnimations();
-    }, 1600);
+      
+      if (hasGanesha) {
+        // Hold ganesha for a bit, then fade out and show main
+        window.setTimeout(() => {
+          ganeshaScreen.classList.remove("is-active");
+          invitation?.setAttribute("aria-hidden", "false");
+          invitation?.classList.add("is-visible");
+          
+          window.setTimeout(() => {
+            document.body.classList.remove("door-locked");
+            setupRevealAnimations();
+          }, 1500); // Wait for ganesha fade out
+        }, 2000); // Hold time
+      } else {
+        document.body.classList.remove("door-locked");
+        setupRevealAnimations();
+      }
+    }, 1600); // Wait for door opening animation
   }
 
   function setupDoor() {

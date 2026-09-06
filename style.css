@@ -273,6 +273,38 @@ img { max-width: 100%; }
 .door-screen.is-opening .enter-button { opacity: 0; transform: translate(-50%, -50%) scale(.9); }
 
 /* ============================================================
+   GANESHA SCREEN
+   ============================================================ */
+.ganesha-screen {
+  position: fixed;
+  inset: 0;
+  z-index: 950;
+  background: var(--ivory);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 1.5s var(--ease-silk), visibility 1.5s var(--ease-silk);
+  pointer-events: none;
+}
+.ganesha-screen.is-active {
+  opacity: 1;
+  visibility: visible;
+}
+.ganesha-img {
+  width: min(70vw, 350px);
+  object-fit: contain;
+  opacity: 0;
+  transform: scale(0.9);
+  transition: opacity 1.5s var(--ease-silk), transform 1.5s var(--ease-silk);
+}
+.ganesha-screen.is-active .ganesha-img {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* ============================================================
    GLOBAL SECTION HELPERS
    ============================================================ */
 .invitation { opacity: 0; transform: translateY(14px); transition: opacity 1.1s ease .1s, transform 1.1s ease .1s; }
