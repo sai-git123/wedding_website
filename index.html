@@ -108,8 +108,15 @@
     <section class="events-section" id="events">
       <div class="section-title" data-animate="fade"><span>The Celebrations</span></div>
       <div class="events-intro" data-animate="fade">Swipe through, and tap a card for directions</div>
-      <div class="events-viewport" id="eventsViewport">
-        <div class="events-list" id="eventsList"></div>
+      <div class="events-carousel-wrap">
+        <div class="events-viewport" id="eventsViewport">
+          <div class="events-list" id="eventsList"></div>
+        </div>
+        <div class="scroll-hint-right" id="scrollHintRight" aria-hidden="true">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="9 18 15 12 9 6"></polyline>
+          </svg>
+        </div>
       </div>
       <div class="events-progress" id="eventsProgress" aria-hidden="true"><span></span></div>
     </section>

@@ -216,6 +216,15 @@
       const max = viewport.scrollWidth - viewport.clientWidth;
       const ratio = max > 0 ? viewport.scrollLeft / max : 0;
       progress.style.transform = `scaleX(${Math.max(0, Math.min(1, ratio))})`;
+      
+      const hint = $("#scrollHintRight");
+      if (hint) {
+        if (ratio >= 0.95 || max <= 0) {
+          hint.style.opacity = "0";
+        } else {
+          hint.style.opacity = "1";
+        }
+      }
     };
 
     viewport.addEventListener("scroll", update, { passive: true });
