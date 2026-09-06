@@ -311,18 +311,16 @@
 
   async function shareInvitation(imageId, buttonEl) {
     const note = $("#shareNote");
-    const caption = formatCaption();
     buttonEl?.classList.add("is-loading");
 
     try {
       const file = await getInvitationFile(imageId);
 
-      // Preferred path: native share sheet with the image FILE + caption.
+      // Preferred path: native share sheet with the image FILE.
       // Choosing WhatsApp here sends the picture itself as media, not a link.
       if (navigator.share && navigator.canShare && navigator.canShare({ files: [file] })) {
         await navigator.share({
           title: "Wedding Invitation",
-          text: caption,
           files: [file]
         });
         if (note) note.textContent = "Choose WhatsApp in the share sheet to send the invitation as media.";
@@ -331,15 +329,14 @@
 
       // Fallback for browsers that cannot share files: WhatsApp's web/link
       // scheme has no way to attach a local image automatically, so we
-      // download the invitation image and open WhatsApp with the caption
-      // pre-filled, ready to attach.
+      // download the invitation image and open WhatsApp.
       downloadInvitation(file);
-      window.open(whatsappTextUrl(caption), "_blank", "noopener,noreferrer");
-      showToast("Invitation image downloaded. Attach it in WhatsApp — your caption is ready there.");
+      window.open("https://wa.me/", "_blank", "noopener,noreferrer");
+      showToast("Invitation image downloaded. Attach it in WhatsApp.");
     } catch (error) {
       if (error?.name === "AbortError") return;
-      window.open(whatsappTextUrl(caption), "_blank", "noopener,noreferrer");
-      showToast("WhatsApp opened with your caption ready to send.");
+      window.open("https://wa.me/", "_blank", "noopener,noreferrer");
+      showToast("WhatsApp opened. Please attach the downloaded image.");
     } finally {
       buttonEl?.classList.remove("is-loading");
     }
