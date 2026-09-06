@@ -1,0 +1,373 @@
+(() => {
+  "use strict";
+
+  const CONFIG = typeof WEDDING_CONFIG !== "undefined" ? WEDDING_CONFIG : (window.WEDDING_CONFIG || {});
+  const $ = (selector) => document.querySelector(selector);
+  const $$ = (selector) => [...document.querySelectorAll(selector)];
+  const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  const fallback = {
+    brideName: "[Bride]",
+    groomName: "[Groom]",
+    familyName: "the family",
+    weddingDate: "",
+    weddingDateLabel: "[Wedding date]",
+    invitationLine: "Together with their families, they invite you to celebrate their wedding.",
+    countdownHeading: "To the beginning of forever.",
+    closingLine: "A warm invite from",
+    whatsappCaption: "You are warmly invited to celebrate the wedding of {bride} & {groom}. 💛\n\n{date}\n{venue}\n\nWe would love to celebrate this special day with you!",
+    whatsappPhone: "",
+    assets: {}
+  };
+
+  const cfg = { ...fallback, ...CONFIG, assets: { ...fallback.assets, ...(CONFIG.assets || {}) } };
+  const events = Array.isArray(cfg.events) ? cfg.events : [];
+  let countdownTimer;
+
+  function clean(value, empty = "") {
+    return value == null ? empty : String(value).trim();
+  }
+
+  function setText(selector, value, empty = "") {
+    const element = $(selector);
+    if (element) element.textContent = clean(value, empty);
+  }
+
+  function setImage(selector, src, alt) {
+    const image = $(selector);
+    if (!image || !src) return;
+    image.src = src;
+    if (alt) image.alt = alt;
+  }
+
+  /* ------------------------------------------------------------
+     DOOR
+     ------------------------------------------------------------ */
+  function openDoors() {
+    const screen = $("#doorScreen");
+    const invitation = $("#invitation");
+    const button = $("#enterButton");
+    if (!screen || screen.classList.contains("is-opening")) return;
+
+    screen.classList.add("is-opening");
+    button?.setAttribute("aria-disabled", "true");
+    invitation?.setAttribute("aria-hidden", "false");
+    invitation?.classList.add("is-visible");
+    document.body.classList.add("door-locked");
+
+    window.setTimeout(() => {
+      screen.classList.add("is-open");
+      document.body.classList.remove("door-locked");
+      setupRevealAnimations();
+    }, 1600);
+  }
+
+  function setupDoor() {
+    const screen = $("#doorScreen");
+    const stage = $("#doorStage");
+    const button = $("#enterButton");
+    const door = cfg.assets.door;
+    if (door) {
+      $$(".door-panel").forEach((panel) => {
+        panel.style.backgroundImage = `url("${door}")`;
+      });
+    }
+
+    const bride = clean(cfg.brideName, "");
+    const groom = clean(cfg.groomName, "");
+    if (bride && groom) setText("#doorNames", `${bride} & ${groom}`);
+
+    button?.addEventListener("click", openDoors);
+    stage?.addEventListener("click", (event) => {
+      if (event.target === stage) openDoors();
+    });
+    screen?.addEventListener("keydown", (event) => {
+      if (event.key === "Enter" || event.key === " ") openDoors();
+    });
+  }
+
+  /* ------------------------------------------------------------
+     CONFIG -> DOM
+     ------------------------------------------------------------ */
+  function applyConfig() {
+    const bride = clean(cfg.brideName, "[Bride]");
+    const groom = clean(cfg.groomName, "[Groom]");
+    const family = clean(cfg.familyName, "the family");
+
+    document.title = bride && groom && bride !== "[Bride]" && groom !== "[Groom]"
+      ? `${bride} & ${groom} — Wedding Invitation`
+      : "Wedding Invitation";
+
+    setText("#brideName", bride, "[Bride]");
+    setText("#groomName", groom, "[Groom]");
+    setText("#familyName", family.toLowerCase().startsWith("the ") ? family : `the ${family}`);
+    setText("#weddingDateLabel", cfg.weddingDateLabel, "[Wedding date]");
+    setText("#invitationLine", cfg.invitationLine, fallback.invitationLine);
+    setText("#countdownHeading", cfg.countdownHeading, fallback.countdownHeading);
+    setText("#closingLine", cfg.closingLine, fallback.closingLine);
+
+    setImage("#couplePhoto", cfg.assets.couplePhoto, "Couple photograph");
+    setImage("#invitationImage", cfg.assets.invitation, "Wedding invitation");
+
+    const ogImage = document.querySelector('meta[property="og:image"]');
+    if (ogImage && cfg.assets.ogImage) ogImage.setAttribute("content", cfg.assets.ogImage);
+
+    const ogTitle = document.querySelector('meta[property="og:title"]');
+    if (ogTitle && bride !== "[Bride]" && groom !== "[Groom]") {
+      ogTitle.setAttribute("content", `${bride} & ${groom} — Wedding Invitation`);
+    }
+  }
+
+  /* ------------------------------------------------------------
+     COUNTDOWN
+     ------------------------------------------------------------ */
+  function startCountdown() {
+    const target = new Date(clean(cfg.weddingDate)).getTime();
+    const card = $(".countdown-card");
+    if (!card || !Number.isFinite(target)) {
+      $("#countdownGrid")?.classList.add("not-configured");
+      return;
+    }
+
+    const tick = () => {
+      const remaining = target - Date.now();
+      if (remaining <= 0) {
+        clearInterval(countdownTimer);
+        card.classList.add("ended");
+        return;
+      }
+      const days = Math.floor(remaining / 86400000);
+      const hours = Math.floor((remaining % 86400000) / 3600000);
+      const minutes = Math.floor((remaining % 3600000) / 60000);
+      const seconds = Math.floor((remaining % 60000) / 1000);
+      setText("#days", String(days).padStart(2, "0"));
+      setText("#hours", String(hours).padStart(2, "0"));
+      setText("#minutes", String(minutes).padStart(2, "0"));
+      setText("#seconds", String(seconds).padStart(2, "0"));
+    };
+
+    tick();
+    countdownTimer = window.setInterval(tick, 1000);
+  }
+
+  /* ------------------------------------------------------------
+     EVENTS
+     ------------------------------------------------------------ */
+  function renderEvents() {
+    const list = $("#eventsList");
+    if (!list) return;
+
+    if (!events.length) {
+      list.innerHTML = `<div class="empty-events">Add your ceremonies in <strong>config.js</strong>.</div>`;
+      $("#eventsProgress")?.classList.add("hidden");
+      return;
+    }
+
+    list.innerHTML = events.map((event, index) => `
+      <article class="event-card" tabindex="0" data-index="${index}" style="--stagger:${index % 4}">
+        <div class="event-card-inner">
+          <span class="event-number">${String(index + 1).padStart(2, "0")} / ${String(events.length).padStart(2, "0")}</span>
+          <span class="event-name">${escapeHtml(event.name || "Event")}</span>
+          <span class="event-date">${escapeHtml(event.date || "")}</span>
+          <span class="event-time">${escapeHtml(event.time || "")}</span>
+          ${event.venue ? `<span class="event-venue">${escapeHtml(event.venue)}</span>` : ""}
+          ${event.description ? `<span class="event-description">${escapeHtml(event.description)}</span>` : ""}
+          <span class="event-location">${event.maps ? "Tap for location ↗" : "Location to be added"}</span>
+        </div>
+      </article>
+    `).join("");
+
+    list.querySelectorAll(".event-card").forEach((card, index) => {
+      const event = events[index];
+      const activate = () => {
+        if (event?.maps) window.open(event.maps, "_blank", "noopener,noreferrer");
+      };
+      card.addEventListener("click", activate);
+      card.addEventListener("keydown", (e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          activate();
+        }
+      });
+    });
+  }
+
+  function setupEventScroller() {
+    const viewport = $("#eventsViewport");
+    const list = $("#eventsList");
+    const progress = $("#eventsProgress span");
+    if (!viewport || !list || !progress) return;
+
+    const update = () => {
+      const max = viewport.scrollWidth - viewport.clientWidth;
+      const ratio = max > 0 ? viewport.scrollLeft / max : 0;
+      progress.style.transform = `scaleX(${Math.max(0, Math.min(1, ratio))})`;
+    };
+
+    viewport.addEventListener("scroll", update, { passive: true });
+    update();
+  }
+
+  /* ------------------------------------------------------------
+     SCROLL REVEAL (fade / slide-up / scale / blur)
+     ------------------------------------------------------------ */
+  function setupRevealAnimations() {
+    const elements = $$("[data-animate], .event-card");
+    if (!elements.length) return;
+
+    if (!("IntersectionObserver" in window) || prefersReducedMotion) {
+      elements.forEach((el) => el.classList.add("in-view"));
+      return;
+    }
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("in-view");
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.18, rootMargin: "0px 0px -8% 0px" });
+
+    elements.forEach((element) => {
+      if (element.dataset.animateDelay) {
+        element.style.setProperty("--stagger", element.dataset.animateDelay);
+      }
+      if (!element.classList.contains("in-view")) observer.observe(element);
+    });
+  }
+
+  /* ------------------------------------------------------------
+     SUBTLE PARALLAX (hero photo / ornaments)
+     ------------------------------------------------------------ */
+  function setupParallax() {
+    if (prefersReducedMotion) return;
+    const targets = $$("[data-parallax]").map((el) => ({
+      el,
+      factor: parseFloat(el.dataset.parallax) || 0.1
+    }));
+    if (!targets.length) return;
+
+    let ticking = false;
+    const update = () => {
+      const y = window.scrollY;
+      targets.forEach(({ el, factor }) => {
+        el.style.transform = `translateY(${Math.min(y * factor, 60)}px)`;
+      });
+      ticking = false;
+    };
+
+    window.addEventListener("scroll", () => {
+      if (!ticking) {
+        window.requestAnimationFrame(update);
+        ticking = true;
+      }
+    }, { passive: true });
+  }
+
+  /* ------------------------------------------------------------
+     WHATSAPP SHARE — sends the invitation image itself
+     ------------------------------------------------------------ */
+  function formatCaption() {
+    const firstEvent = events[0] || {};
+    const venue = firstEvent.venue || "";
+    return clean(cfg.whatsappCaption, fallback.whatsappCaption)
+      .replaceAll("{bride}", clean(cfg.brideName, ""))
+      .replaceAll("{groom}", clean(cfg.groomName, ""))
+      .replaceAll("{date}", clean(cfg.weddingDateLabel, ""))
+      .replaceAll("{venue}", venue);
+  }
+
+  function whatsappTextUrl(caption) {
+    const phone = clean(cfg.whatsappPhone, "").replace(/[^0-9]/g, "");
+    const base = phone ? `https://wa.me/${phone}` : "https://wa.me/";
+    return `${base}?text=${encodeURIComponent(caption)}`;
+  }
+
+  async function getInvitationFile() {
+    const image = $("#invitationImage");
+    if (!image?.src) throw new Error("Invitation image is not configured.");
+
+    const response = await fetch(image.src, { cache: "no-store" });
+    if (!response.ok) throw new Error("Could not load invitation image.");
+    const blob = await response.blob();
+    const extension = blob.type.includes("jpeg") || blob.type.includes("jpg") ? "jpg" : "png";
+    return new File([blob], `wedding-invitation.${extension}`, { type: blob.type || "image/png" });
+  }
+
+  async function shareInvitation() {
+    const button = $("#shareButton");
+    const note = $("#shareNote");
+    const caption = formatCaption();
+    button?.classList.add("is-loading");
+
+    try {
+      const file = await getInvitationFile();
+
+      // Preferred path: native share sheet with the image FILE + caption.
+      // Choosing WhatsApp here sends the picture itself as media, not a link.
+      if (navigator.share && navigator.canShare && navigator.canShare({ files: [file] })) {
+        await navigator.share({
+          title: "Wedding Invitation",
+          text: caption,
+          files: [file]
+        });
+        if (note) note.textContent = "Choose WhatsApp in the share sheet to send the invitation as media.";
+        return;
+      }
+
+      // Fallback for browsers that cannot share files: WhatsApp's web/link
+      // scheme has no way to attach a local image automatically, so we
+      // download the invitation image and open WhatsApp with the caption
+      // pre-filled, ready to attach.
+      downloadInvitation(file);
+      window.open(whatsappTextUrl(caption), "_blank", "noopener,noreferrer");
+      showToast("Invitation image downloaded. Attach it in WhatsApp — your caption is ready there.");
+    } catch (error) {
+      if (error?.name === "AbortError") return;
+      window.open(whatsappTextUrl(caption), "_blank", "noopener,noreferrer");
+      showToast("WhatsApp opened with your caption ready to send.");
+    } finally {
+      button?.classList.remove("is-loading");
+    }
+  }
+
+  function downloadInvitation(file) {
+    const url = URL.createObjectURL(file);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = file.name;
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+  }
+
+  function showToast(message) {
+    const toast = $("#toast");
+    if (!toast) return;
+    toast.textContent = message;
+    toast.classList.add("show");
+    window.clearTimeout(showToast.timer);
+    showToast.timer = window.setTimeout(() => toast.classList.remove("show"), 4200);
+  }
+
+  function escapeHtml(value) {
+    return String(value).replace(/[&<>'"]/g, (char) => ({
+      "&": "&amp;", "<": "&lt;", ">": "&gt;", "'": "&#39;", '"': "&quot;"
+    }[char]));
+  }
+
+  function init() {
+    applyConfig();
+    setupDoor();
+    startCountdown();
+    renderEvents();
+    setupEventScroller();
+    setupParallax();
+    setupRevealAnimations();
+    $("#shareButton")?.addEventListener("click", shareInvitation);
+  }
+
+  init();
+})();

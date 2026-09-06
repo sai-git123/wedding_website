@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#f6f0e2">
+  <meta name="description" content="Wedding invitation">
+  <meta property="og:title" content="Wedding Invitation">
+  <meta property="og:description" content="A celebration of love and togetherness.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="assets/invitation-placeholder.svg" id="ogImageTag">
+  <meta name="twitter:card" content="summary_large_image">
+  <title>Wedding Invitation</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Allura&family=Sacramento&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Ambient grain + vignette, purely decorative -->
+  <div class="grain-overlay" aria-hidden="true"></div>
+
+  <!-- ENTRY / DOOR -->
+  <section class="door-screen" id="doorScreen" aria-label="Open wedding invitation">
+    <div class="door-backdrop" aria-hidden="true"></div>
+    <div class="door-glow" id="doorGlow" aria-hidden="true"></div>
+    <div class="door-stage" id="doorStage">
+      <div class="door-panel door-left" aria-hidden="true">
+        <span class="door-motif door-motif-left" aria-hidden="true">❧</span>
+      </div>
+      <div class="door-panel door-right" aria-hidden="true">
+        <span class="door-motif door-motif-right" aria-hidden="true">❧</span>
+      </div>
+      <div class="door-center-line" aria-hidden="true"></div>
+      <div class="door-invite-copy" aria-hidden="true">
+        <span class="door-kicker">The wedding of</span>
+        <span class="door-names" id="doorNames">&amp;</span>
+      </div>
+      <button class="enter-button" id="enterButton" type="button" aria-label="Open the invitation">
+        <span class="enter-ring" aria-hidden="true"></span>
+        <span class="enter-kicker">You are invited</span>
+        <span class="enter-label">Tap to enter</span>
+      </button>
+    </div>
+  </section>
+
+  <main class="invitation" id="invitation" aria-hidden="true">
+
+    <!-- HERO -->
+    <section class="hero" data-animate="fade">
+      <div class="hero-rings" aria-hidden="true"><span></span><span></span></div>
+      <div class="hero-ornament hero-ornament-top" aria-hidden="true">✦</div>
+
+      <div class="hero-photo glass-card" data-parallax="0.12" data-animate="scale">
+        <img id="couplePhoto" src="assets/couple-placeholder.svg" alt="Couple photograph">
+        <div class="photo-frame-inner" aria-hidden="true"></div>
+        <div class="photo-overlay" aria-hidden="true"></div>
+      </div>
+
+      <div class="hero-copy" data-animate="slide-up" data-animate-delay="1">
+        <p class="eyebrow">Together with their families</p>
+        <h1><span id="brideName">[Bride]</span><em>&amp;</em><span id="groomName">[Groom]</span></h1>
+        <p class="hero-date" id="weddingDateLabel">[Wedding date]</p>
+        <div class="mini-divider" aria-hidden="true"><span></span>✦<span></span></div>
+        <p class="hero-note" id="invitationLine">Together with their families, they invite you to celebrate their wedding.</p>
+      </div>
+
+      <a class="scroll-cue" href="#countdown" aria-label="Scroll to countdown"><span></span>Scroll</a>
+    </section>
+
+    <div class="section-divider" aria-hidden="true"><span></span>❧<span></span></div>
+
+    <!-- COUNTDOWN -->
+    <section class="countdown-section" id="countdown">
+      <div class="section-title" data-animate="fade"><span>Counting the days</span></div>
+      <div class="countdown-card glass-card" data-animate="scale">
+        <p class="script-heading" id="countdownHeading">To the beginning of forever.</p>
+        <div class="countdown-grid" id="countdownGrid">
+          <div class="time-unit"><strong id="days">00</strong><span>Days</span></div>
+          <div class="time-unit"><strong id="hours">00</strong><span>Hours</span></div>
+          <div class="time-unit"><strong id="minutes">00</strong><span>Minutes</span></div>
+          <div class="time-unit"><strong id="seconds">00</strong><span>Seconds</span></div>
+        </div>
+        <p class="countdown-ended" id="countdownEnded">The celebration has begun.</p>
+      </div>
+    </section>
+
+    <div class="section-divider" aria-hidden="true"><span></span>❧<span></span></div>
+
+    <!-- EVENTS -->
+    <section class="events-section" id="events">
+      <div class="section-title" data-animate="fade"><span>The Celebrations</span></div>
+      <div class="events-intro" data-animate="fade">Swipe through, and tap a card for directions</div>
+      <div class="events-viewport" id="eventsViewport">
+        <div class="events-list" id="eventsList"></div>
+      </div>
+      <div class="events-progress" id="eventsProgress" aria-hidden="true"><span></span></div>
+    </section>
+
+    <div class="section-divider" aria-hidden="true"><span></span>❧<span></span></div>
+
+    <!-- INVITATION -->
+    <section class="invitation-section" id="invitation-card">
+      <div class="section-title" data-animate="fade"><span>The Invitation</span></div>
+      <div class="invitation-frame glass-card" data-animate="blur">
+        <div class="invitation-frame-corner tl" aria-hidden="true"></div>
+        <div class="invitation-frame-corner tr" aria-hidden="true"></div>
+        <div class="invitation-frame-corner bl" aria-hidden="true"></div>
+        <div class="invitation-frame-corner br" aria-hidden="true"></div>
+        <img id="invitationImage" src="assets/invitation-placeholder.svg" alt="Wedding invitation">
+      </div>
+      <button class="share-button" id="shareButton" type="button" data-animate="fade">
+        <span class="share-icon" aria-hidden="true">
+          <svg viewBox="0 0 32 32" width="20" height="20" fill="currentColor" aria-hidden="true">
+            <path d="M16.02 2.67C8.6 2.67 2.59 8.68 2.59 16.1c0 2.44.64 4.72 1.76 6.7L2.5 29.33l6.7-1.76a13.4 13.4 0 0 0 6.82 1.86h.01c7.42 0 13.43-6.01 13.43-13.43 0-3.59-1.4-6.96-3.94-9.5a13.35 13.35 0 0 0-9.5-3.83Zm0 24.3h-.01a11.2 11.2 0 0 1-5.7-1.56l-.41-.24-3.98 1.04 1.06-3.88-.27-.4a11.14 11.14 0 0 1-1.72-5.83c0-6.18 5.03-11.21 11.22-11.21a11.15 11.15 0 0 1 7.93 3.29 11.13 11.13 0 0 1 3.28 7.93c0 6.18-5.03 11.86-11.4 11.86Zm6.15-8.4c-.34-.17-1.99-.98-2.3-1.09-.31-.11-.53-.17-.76.17-.22.34-.87 1.09-1.07 1.31-.2.23-.39.25-.73.08-.34-.17-1.43-.53-2.72-1.68a10.2 10.2 0 0 1-1.89-2.35c-.2-.34-.02-.52.15-.69.15-.15.34-.4.51-.6.17-.2.22-.34.34-.57.11-.23.06-.43-.03-.6-.09-.17-.76-1.84-1.05-2.52-.28-.66-.56-.57-.76-.58l-.65-.01c-.23 0-.6.08-.91.43-.31.34-1.2 1.17-1.2 2.85 0 1.68 1.23 3.3 1.4 3.53.17.23 2.42 3.7 5.86 5.19.82.35 1.46.56 1.96.72.82.26 1.57.22 2.16.13.66-.1 1.99-.81 2.27-1.6.28-.78.28-1.45.2-1.6-.09-.14-.31-.23-.65-.4Z"/>
+          </svg>
+        </span>
+        <span>Share Invitation on WhatsApp</span>
+      </button>
+      <p class="share-note" id="shareNote">Sends the invitation image itself, with your message, on supported phones.</p>
+    </section>
+
+    <div class="section-divider" aria-hidden="true"><span></span>❧<span></span></div>
+
+    <!-- CLOSING -->
+    <section class="closing" data-animate="fade">
+      <div class="closing-ornament" aria-hidden="true">✦</div>
+      <p class="closing-script" id="closingLine">A warm invite from</p>
+      <h2 id="familyName">the family</h2>
+      <div class="closing-mark" aria-hidden="true">❧</div>
+    </section>
+  </main>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="config.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
