@@ -25,7 +25,6 @@ const WEDDING_CONFIG = {
       "assets/couple_4.jpg",
       "assets/couple_5.jpg" // Add more photos here
     ], // array of hero photographs for the carousel
-    ganesha: "assets/ganesha.png", // Ganesha picture to flash on entry
     invitationEn: "assets/English.png",  // English invitation card
     invitationKn: "assets/kannada.png",  // Kannada invitation card
     ogImage: "assets/kannada.png",      // used for link previews
@@ -51,7 +50,7 @@ const WEDDING_CONFIG = {
       date: "23 Nov 2026",
       time: "10:00 AM onwards",
       venue: "Shri Ganesha Nilaya, Baggon, Kumta",
-      description: "A day of henna, music and colour.",
+      description: "Intricate henna designs, joyous music, vibrant colors.",
       maps: "https://maps.app.goo.gl/oaPr6WyuejV1NDnFA"
     },
     {
@@ -59,15 +58,15 @@ const WEDDING_CONFIG = {
       date: "24 Nov 2026",
       time: "09:00 AM onwards",
       venue: "Shri Ganesha Nilaya, Baggon, Kumta",
-      description: "A morning of Turmeric.",
+      description: "A bright morning filled with golden blessings.",
       maps: "https://maps.app.goo.gl/oaPr6WyuejV1NDnFA"
     },
     {
       name: "Sangeet and Engagement",
       date: "24 Nov 2026",
-      time: "07:00 PM onwards",
+      time: "06:00 PM onwards",
       venue: "Halakki Vokkaligara Samudaya Bhavana, Divgi, Kumta",
-      description: "A evening of music, dance and fun.",
+      description: "An unforgettable evening of dance and celebration.",
       maps: "https://maps.app.goo.gl/8qUNm63owE6WcYCo8"
     },
     {
@@ -75,8 +74,8 @@ const WEDDING_CONFIG = {
       date: "25 Nov 2026",
       time: "10:30 AM muhurtham",
       venue: "Halakki Vokkaligara Samudaya Bhavana, Divgi, Kumta",
-      description: "The Wedding.",
-      maps: "https://maps.app.goo.gl/oaPr6WyuejV1NDnFA"
+      description: "The sacred vows bringing two souls together.",
+      maps: "https://maps.app.goo.gl/8qUNm63owE6WcYCo8"
     }
   ]
 };
